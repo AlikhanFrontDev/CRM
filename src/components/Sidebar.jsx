@@ -73,7 +73,7 @@ const Container = styled.div`
     background-color: #0D1C38;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     height: 100vh;
     position: relative;
@@ -91,7 +91,7 @@ const Container = styled.div`
     }
 
     ul{
-        margin-top: 60px;
+        margin-top: 138px;
     }
 
     li{
@@ -101,6 +101,7 @@ const Container = styled.div`
         font-weight: 400;
         font-size: 14px;
         line-height: 17px;
+
         
     }
 
@@ -119,7 +120,7 @@ const Container = styled.div`
         line-height: 17px;
         border: 0.1px solid  #0D1C38;
         border-radius: 10px;
-        height: 66px;
+        height: 80px;
         width: 90px;
         background-color: #0D1C38;
         color: #fff;
@@ -133,7 +134,7 @@ const Container = styled.div`
     .active{
         border: 0.1px solid;
         border-radius: 10px;
-        height: 66px;
+        height: 80px;
         width: 90px;
         background-color: #fff;
         color: #0D1C38;

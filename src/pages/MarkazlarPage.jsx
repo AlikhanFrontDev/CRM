@@ -8,6 +8,7 @@ import { AiOutlineHome } from "react-icons/ai";
 import SubNav from '../components/SubNav';
 import MarkazlarTable from '../components/Tables/MarkazlarTable';
 import ToggleForm from '../components/Tables/ToggleForm';
+import TableNavigation from '../components/TableNavigation';
 
 
 
@@ -44,12 +45,11 @@ function MarkazlarPage() {
 
                     />
                     <SubNav
-                        button={"Xabar yuborish"}
                         title={"+ O'quv markaz qo'shish"}
                         onClick1={toggleModal}
                     />
                     <div className="listContainer">
-
+                        <TableNavigation />
                         <MarkazlarTable />
                     </div>
                 </div>
@@ -60,7 +60,7 @@ function MarkazlarPage() {
                     <div className="modal">
                         <div onClick={toggleModal} className="overlay"></div>
                         <div className="modal-content">
-                            <ToggleForm />
+                            <ToggleForm onClick={toggleModal} />
                         </div>
                     </div>
                 </Modal>
@@ -97,18 +97,11 @@ const Modal = styled.div`
 body.active-modal {
     overflow-y: hidden;
 }
-.modal{
-    
+.modal{   
     width: 989px;
-    height: 539px;
+    height: 623px;
 }
 
-.btn-modal {
-    padding: 10px 20px;
-    display: block;
-    margin: 100px auto 0;
-    font-size: 18px;
-}
 
 .modal, .overlay {
     width: 100vw;
@@ -131,77 +124,10 @@ body.active-modal {
     line-height: 1.4;
     background: #f1f1f1;
     padding: 14px 28px;
-    border-radius: 3px;
+    border-radius: 15px;
     width: 989px;
-    height: 539px;
+    height: 623px;
 }
-
-
-.close-modal {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 5px 7px;
-}
-
-
-.container{
-    display: flex;
-    flex-direction: column;
-    margin-top: 69px;
-    margin-left: 40px;
-}
-
-.nameSpan{
-    margin-bottom: 50px;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 19px;
-}
-
-.inputStyle{
-    margin-left: 20px;
-    margin-bottom: 35px;
-    width: 270px;
-    height: 36px;
-    background: #FFFFFF;
-    border: 1px solid #DADADA;
-    border-radius: 5px;
-}
-.inputStyle1{
-    margin-left: 20px;
-    margin-bottom: 35px;
-    width: 270px;
-    height: 36px;
-    background: #FFFFFF;
-    border: 1px solid #DADADA;
-    border-radius: 5px;
-}
-
-h2{
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 24px;
-    margin-top: 20px;
-    margin-left: 40px;
-}
-
-.close-modal{
-    border: none;
-    cursor: pointer;
-    margin: 20px;
-    font-size: large;
-}
-
-
-`
-
-const Form = styled.form`
-    
 `
 
 
