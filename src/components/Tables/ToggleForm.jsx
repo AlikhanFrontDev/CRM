@@ -1,8 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 import { AiOutlinePlus, AiOutlineClose } from "react-icons/ai";
 
 function ToggleForm({ onClick }) {
+    const [data, setData] = useState({
+        name: "",
+        addTime: "",
+        limitTime: "",
+        admin: "",
+        phone: "",
+        seo: "",
+        sttr: "",
+        seophone: "",
+        username: "",
+        password: "",
+        status: "",
+    })
+
+    function handleSubmit(e) {
+        e.preventDefault()
+        fetch('https://my-json-server.typicode.com/AlikhanFrontDev/fakeDataBase/db', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(data => console.log(data.user))
+    }
+
+    function handleChange(e) {
+        setData({ ...data, [e.target.name]: e.target.value })
+    }
+
+
     return (
         <Container>
             <div className='box1'>
@@ -16,7 +47,7 @@ function ToggleForm({ onClick }) {
                 </label>
                 <p className='logo'>Logo</p>
             </div>
-            <form>
+            <form onSubmit={e => handleSubmit(e)}>
                 <div className="box3">
 
                     <div className='labels'>
@@ -27,14 +58,14 @@ function ToggleForm({ onClick }) {
                         <label htmlFor="">STTR</label>
                     </div>
                     <div className='labels'>
-                        <input className='inputs' type="text" />
+                        <input className='inputs' type="text" onChange={e => handleChange(e)} name="name" value={data.name} />
                         <div className='datePicker'>
-                            <input type="date" className='startDate' />
-                            <input type="date" className='endDate' />
+                            <input type="date" className='startDate' onChange={e => handleChange(e)} name="addTime" value={data.addTime} />
+                            <input type="date" className='endDate' onChange={e => handleChange(e)} name="limitTime" value={data.limitTime} />
                         </div>
-                        <input className='inputs' type="text" name='' />
-                        <input className='inputs' type="text" name='' />
-                        <input className='inputs' type="text" name='' />
+                        <input className='inputs' type="text" name='admin' onChange={e => handleChange(e)} id="admin" value={data.admin} />
+                        <input className='inputs' type="text" name='phone' onChange={e => handleChange(e)} id="phone" value={data.phone} />
+                        <input className='inputs' type="text" name='sttr' onChange={e => handleChange(e)} id="sttr" value={data.sttr} />
                     </div>
                     <div className='labels'>
                         <label htmlFor="">Direktor</label>
@@ -44,19 +75,19 @@ function ToggleForm({ onClick }) {
                         <label htmlFor="">Status</label>
                     </div>
                     <div className='labels'>
-                        <input className='inputs' type="text" name='' />
-                        <input className='inputs' type="text" name='' />
-                        <input className='inputs' type="text" name='' />
-                        <input className='inputs' type="text" name='' />
-                        <select name="cars" id="cars" form="carform" className='inputs'>
-                            <option value="volvo">Faol</option>
-                            <option value="saab">Faol emas</option>
-                            <option value="opel">Demo</option>
+                        <input className='inputs' type="text" name='seo' onChange={e => handleChange(e)} id="name" value={data.seo} />
+                        <input className='inputs' type="text" name='seophone' onChange={e => handleChange(e)} id="seophone" value={data.seophone} />
+                        <input className='inputs' type="text" name='username' onChange={e => handleChange(e)} id="username" value={data.username} />
+                        <input className='inputs' type="text" name='password' onChange={e => handleChange(e)} id="password" value={data.password} />
+                        <select name="status" form="carform" className='inputs' >
+                            <option value="faol">Faol</option>
+                            <option value="faol emas">Faol emas</option>
+                            <option value="demo">Demo</option>
                         </select>
                     </div>
                 </div>
                 <div className='buttons'>
-                    <button className='saveBtn'>Saqlash</button>
+                    <button className='saveBtn' type='submit' >Saqlash</button>
                     <button className='IgnoreBtn' type='reset' >Tozalash</button>
                 </div>
             </form>

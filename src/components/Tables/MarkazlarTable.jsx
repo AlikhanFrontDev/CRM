@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import axios from "axios"
 import { Checkbox } from '@mui/material';
 
-const apiEndpoint = "https://jsonplaceholder.typicode.com/users"
+const apiEndpoint = "https://my-json-server.typicode.com/AlikhanFrontDev/fakeDataBase/profile"
 class MarkazlarTable extends Component {
     state = {
         users: []
@@ -39,10 +39,10 @@ class MarkazlarTable extends Component {
                                     <td className='check'><Checkbox /></td>
                                     <td>{users.id}</td>
                                     <td>{users.name}</td>
-                                    <td>{users.email}</td>
-                                    <td>{users.city}</td>
+                                    <td>{users.addTime}</td>
+                                    <td>{users.status}</td>
                                     <td>{users.phone}</td>
-                                    <td>{users.website}</td>
+                                    <td>{users.seo}</td>
                                     <td>
                                         <button
                                             className="btn btn-info btn-sm"
