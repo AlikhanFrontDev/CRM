@@ -13,7 +13,9 @@ import Xisobot from './pages/Xisobot'
 import Sidebar from './components/Sidebar';
 import LoginPage from './pages/LoginPage';
 import MarkazlarPage from './pages/MarkazlarPage';
+import MarkazlarArchive from './components/MarkazlarArchive';
 import DaromadPage from './pages/DaromadPage';
+import Test from './Test';
 
 
 function App() {
@@ -29,7 +31,8 @@ function App() {
         <Route path='/' element={<LoginPage />} />
         <Route path='/markazlarPage' element={<MarkazlarPage />} />
         <Route path='/daromadPage' element={<DaromadPage />} />
-
+        <Route path='/test' element={<Test />} />
+        <Route path='/markazlarArchive' element={<MarkazlarArchive />} />
       </Routes>
     </div>
   );

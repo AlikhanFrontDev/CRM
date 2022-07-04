@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import axios from "axios"
 import { Checkbox } from '@mui/material';
 
-const apiEndpoint = "https://my-json-server.typicode.com/AlikhanFrontDev/fakeDataBase/profile"
+const apiEndpoint = "http://185.244.216.51:8079/api/eduCenter/getAll"
 class MarkazlarTable extends Component {
     state = {
-        users: []
+        users: [],
+        status: []
     };
 
     async componentDidMount() {
@@ -14,6 +15,20 @@ class MarkazlarTable extends Component {
         this.setState({ users });
         console.log(users)
     }
+
+
+    handleDelete(id, e) {
+        axios.delete(`http://185.244.216.51:8079/api/eduCenter/delete/${id}`)
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+
+                const users = this.state.users.filter(item => item.id !== id);
+                this.setState({ users });
+            })
+
+    }
+
 
     render() {
         return (
@@ -38,11 +53,11 @@ class MarkazlarTable extends Component {
                                 <tr>
                                     <td className='check'><Checkbox /></td>
                                     <td>{users.id}</td>
-                                    <td>{users.name}</td>
-                                    <td>{users.addTime}</td>
+                                    <td>{users.eduCenterName}</td>
+                                    <td>{users.joiningAt}</td>
                                     <td>{users.status}</td>
-                                    <td>{users.phone}</td>
-                                    <td>{users.seo}</td>
+                                    <td>{users.phoneNumber}</td>
+                                    <td>{users.ceo}</td>
                                     <td>
                                         <button
                                             className="btn btn-info btn-sm"
@@ -54,7 +69,7 @@ class MarkazlarTable extends Component {
                                     <td>
                                         <button
                                             className="btn btn-danger btn-sm"
-                                            onClick={() => this.handleDelete()}
+                                            onClick={(e) => this.handleDelete(users.id, e)}
                                         >
                                             Delete
                                         </button>
@@ -76,11 +91,12 @@ const Container = styled.div`
 }
     table{
         width: 100%;
+        border-collapse: collapse;
     }
     thead{
         height: 59px;
         width: 100%;
-        background-color: #F2F2F2;
+        background-color: #EEEEEE;
     }
 
     tbody{
@@ -89,7 +105,7 @@ const Container = styled.div`
     }
 
     th{
-        border: none;
+        
     }
 
     .check{

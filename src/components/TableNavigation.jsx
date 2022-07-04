@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import { NavLink } from "react-router-dom"
 
 function TableNavigation(props) {
     return (
         <Container>
             <ul className='nav'>
-                <li><a href="">Joriy</a></li>
-                <li><a href="">Arxiv</a></li>
+                <li><NavLink to={"/markazlarPage"}>Joriy</NavLink></li>
+                <li><NavLink to={"/markazlarArchive"}>Arxiv</NavLink></li>
             </ul>
             <hr />
         </Container>
@@ -33,6 +34,9 @@ const Container = styled.div`
         font-size: 20px;
         line-height: 24px;
         color: #A5A5A5;
+    }
+    .active{
+        border-bottom: solid 3px blue;
     }
 `
 
