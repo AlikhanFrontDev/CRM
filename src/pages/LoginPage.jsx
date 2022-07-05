@@ -7,12 +7,12 @@ function LoginPage() {
 
     const [formData, setFormData] = useState({
         username: '',
-        title: ''
+        password: ''
     })
 
     function handleSubmit(e) {
         e.preventDefault()
-        fetch('http://185.244.216.51:9090/api/auth/login', {
+        fetch('http://185.244.216.51:8079/api/auth/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData)
@@ -32,9 +32,9 @@ function LoginPage() {
                     <ForumItem onSubmit={e => handleSubmit(e)}>
                         <h2>Welcome</h2>
                         <label htmlFor="">Login</label>
-                        <input type="date" placeholder='Login' value={formData.username} name='username' onChange={e => handleChange(e)} />
+                        <input type="text" placeholder='Login' value={formData.username} name='username' onChange={e => handleChange(e)} />
                         <label htmlFor="">Password</label>
-                        <input type="datetime-local" placeholder='Password' value={formData.title} name='title' onChange={e => handleChange(e)} />
+                        <input type="password" placeholder='Password' value={formData.password} name='password' onChange={e => handleChange(e)} />
                         <button type="submit">Sign In</button>
                     </ForumItem>
                 </Forum>

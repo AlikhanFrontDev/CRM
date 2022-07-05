@@ -25,6 +25,9 @@ class ToggleForm extends Component {
         };
     }
 
+
+
+
     // //GET
     // // async componentDidMount() {
     // //     const { data: status } = await axios.get("http://185.244.216.51:8079/api/eduCenter/getStatus");
@@ -70,14 +73,15 @@ class ToggleForm extends Component {
                     <h3>O'quv markaz qo'shish</h3>
                     <button className='close'><AiOutlineClose /></button>
                 </div>
-                <div className='box2'>
-                    <label htmlFor="file" className='imageBox'>
-                        <input type="file" id='file' style={{ display: "none" }} />
-                        <AiOutlinePlus className='imageIcon' />
-                    </label>
-                    <p className='logo'>Logo</p>
-                </div>
+
                 <form onSubmit={this.handleSubmit}>
+                    <div className='box2'>
+                        <label htmlFor="file" className='imageBox'>
+                            <input type="file" id='file' style={{ display: "none" }} />
+                            <AiOutlinePlus className='imageIcon' />
+                        </label>
+                        <p className='logo'>Logo</p>
+                    </div>
                     <div className="box3">
 
                         <div className='labels'>
