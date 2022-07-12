@@ -5,10 +5,14 @@ import { AiOutlinePlus, AiOutlineClose } from "react-icons/ai";
 
 class ToggleForm extends Component {
 
+
+
+
     constructor() {
         super();
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
         this.state = {
             edu_centerName: [],
             centerPhone: [],
@@ -20,8 +24,9 @@ class ToggleForm extends Component {
             joiningEnd: [],
             adminFullName: [],
             adminUsername: [],
-            adminPassword: []
-
+            adminPassword: [],
+            selectedFile: '',
+            logoId: ''
         };
     }
 
@@ -40,6 +45,47 @@ class ToggleForm extends Component {
     }
 
 
+
+    handleInputChange(e) {
+        this.setState({
+            selectedFile: e.target.files[0],
+            // logoId: res
+
+        })
+        // this.setState({
+        //     logoId: data.id
+        // })
+    }
+
+
+    // componentDidMount() {
+    //     // Simple POST request with a JSON body using fetch
+    //     const requestOptions = {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify({ title: 'React POST Request Example' })
+    //     };
+    //     fetch('https://jsonplaceholder.typicode.com/posts', requestOptions)
+    //         .then(response => response.json())
+    //         .then(data => this.setState({ postId: data.id }));
+    // }
+
+    // submit() {
+    //     const data = new FormData()
+    //     data.append('file', this.state.selectedFile,)
+    //     console.warn(data);
+
+    //     let url = "http://185.244.216.51:8079/api/eduCenter/saveFile";
+
+    //     axios.post(url, data, {
+    //     })
+    //         // .then(res => res.json())
+    //         .then(res => this.setState({ logoId: res }))
+    //         .then(res => { console.log(res) })
+
+    // }
+
+
     handleSubmit = e => {
         e.preventDefault();
 
@@ -52,7 +98,6 @@ class ToggleForm extends Component {
             ceoPhone: this.state.ceoPhone,
             adminUsername: this.state.adminUsername,
             adminPassword: this.state.adminPassword,
-            centerStatusName: this.state.centerStatusName,
         }
 
 
@@ -76,18 +121,18 @@ class ToggleForm extends Component {
 
                 <form onSubmit={this.handleSubmit}>
                     <div className='box2'>
-                        <label htmlFor="file" className='imageBox'>
-                            <input type="file" id='file' style={{ display: "none" }} />
+                        {/* <label htmlFor="file" className='imageBox'>
+                            <input type="file" id='file' style={{ display: "none" }} name="upload_file" onChange={this.handleInputChange} />
                             <AiOutlinePlus className='imageIcon' />
                         </label>
-                        <p className='logo'>Logo</p>
+                        <p className='logo'>Logo</p> */}
                     </div>
                     <div className="box3">
 
                         <div className='labels'>
-                            <label htmlFor="" > Nomi</label>
-                            <label htmlFor="">Adminstrator</label>
-                            <label htmlFor="">Telefon nomer</label>
+                            <label htmlFor="" >Nomi</label>
+                            <label htmlFor="">Direktor</label>
+                            <label htmlFor="">Direktor tel raqami</label>
                             <label htmlFor="">STTR</label>
                         </div>
                         <div className='labels'>
@@ -100,11 +145,11 @@ class ToggleForm extends Component {
                             <input className='inputs' type="text" name='centerStir' id="centerStir" onChange={this.handleChange} />
                         </div>
                         <div className='labels'>
-                            <label htmlFor="">Direktor</label>
-                            <label htmlFor="">Direktor nomeri</label>
+                            <label htmlFor="">Adminstrator </label>
+                            <label htmlFor="">Telefon raqami</label>
                             <label htmlFor="">Login</label>
                             <label htmlFor="">Parol</label>
-                            <label htmlFor="">Status</label>
+
                         </div>
                         <div className='labels'>
                             <input className='inputs' type="text" name='ceo_full_name' id="ceo_full_name" onChange={this.handleChange} />
@@ -113,20 +158,22 @@ class ToggleForm extends Component {
                             <input className='inputs' type="text" name='adminPassword' id="adminPassword" onChange={this.handleChange} />
 
 
-                            <select name="centerStatusName" form="carform" className='inputs' onChange={this.handleChange} >
-                                {/* {this.state.status.map(status => (
+                            {/* <select name="centerStatusName" form="carform" className='inputs' onChange={this.handleChange} >
+                                {this.state.status.map(status => (
                                     <option name="status" value={status.id} onChange={this.handleChange} >{status.name}</option>
-                                ))} */}
+                                ))}
                                 <option id='Active' value="Active">Active</option>
                                 <option id='UnActive' value="UnActive">UnActive</option>
                                 <option id='Demo' value="Demo">Demo</option>
-                            </select>
+                            </select> */}
 
 
                         </div>
                     </div>
                     <div className='buttons'>
-                        <button className='saveBtn' type='submit' >Saqlash</button>
+                        <button className='saveBtn' type='submit'
+                        //  onClick={() => this.submit()} 
+                        >Saqlash</button>
                         <button className='IgnoreBtn' type='reset' >Tozalash</button>
                     </div>
                 </form>
@@ -151,7 +198,7 @@ const Container = styled.div`
     .box2{
         display: flex;
         align-items: center;
-        
+        margin-bottom: 100px;
     }
     .box3{
         display: flex;

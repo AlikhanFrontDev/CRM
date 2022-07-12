@@ -17,6 +17,26 @@ class MarkazlarTable extends Component {
     }
 
 
+
+
+    // handleUpdate() {
+    //     axios({
+    //         method: 'PUT',
+    //         url: 'http://185.244.216.51:8079/api/eduCenter/updateEduCenter',
+    //         data: bodyFormData,
+    //         headers: { 'Content-Type': 'application/json' }
+    //     })
+    //         .then(function (response) {
+    //             //handle success
+    //             console.log(response);
+    //         })
+    //         .catch(function (response) {
+    //             //handle error
+    //             console.log(response);
+    //         });
+    // }
+
+
     handleDelete(id, e) {
         axios.delete(`http://185.244.216.51:8079/api/eduCenter/delete/${id}`)
             .then(res => {

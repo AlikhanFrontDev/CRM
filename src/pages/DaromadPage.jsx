@@ -1,15 +1,30 @@
-import React, { useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import styled from 'styled-components'
 import NavBar from '../components/NavBar';
 import Sidebar from '../components/Sidebar';
 import { TbReportMoney } from "react-icons/tb";
 import { AiOutlineHome } from "react-icons/ai";
 import SubNav from '../components/SubNav';
+import ToggleForm from '../components/Tables/ToggleForm';
+import axios from 'axios';
+import PaymountTitle from '../components/PaymountTitle';
+import PaymentsTable from '../components/Tables/PaymentsTable';
+
+
 
 
 function DaromadPage() {
     const [modal, setModal] = useState(false);
+    const [modal2, setModal2] = useState(false);
+    const [name, setName] = useState('');
+    const [startTime, setStart] = useState('');
+    const [endTime, setEnd] = useState('');
+    const [payAmount, setMoney] = useState('');
+    const [comment, setComment] = useState('');
+    const [data, setData] = useState([]);
+    const [eduCenterId, setCenterId] = useState('')
 
+    // ------------------------------------------------------------------------
     const toggleModal = () => {
         setModal(!modal);
     };
@@ -20,6 +35,54 @@ function DaromadPage() {
         document.body.classList.remove('active-modal')
     }
 
+
+
+    const toggleModalTolov = () => {
+        setModal2(!modal2);
+    };
+
+    if (modal2) {
+        document.body.classList.add('active-modal')
+    } else {
+        document.body.classList.remove('active-modal')
+    }
+    // ---------------------------------------------------------
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+
+
+
+
+        const postData = { startTime, endTime, payAmount, comment, eduCenterId }
+        console.log(postData)
+
+        axios.post('http://185.244.216.51:8079/api/payEdu/createEduPay', postData)
+
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
+    // --------------------------------------------------------------
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const { data: response } = await axios.get('http://185.244.216.51:8079/api/eduCenter/getEducentersNameAndId');
+                setData(response);
+            } catch (error) {
+                console.error(error.message);
+            }
+        }
+
+        fetchData();
+    }, []);
+    // -----------------------------------------------------------------------
     return (
 
         <>
@@ -33,56 +96,64 @@ function DaromadPage() {
                         name={'Daromad'}
                     />
                     <SubNav
-                        button={"Xabar yuborish"}
                         title={"+ O'quv markaz qo'shish"}
                         onClick1={toggleModal}
+                        button={"To'lov qilish"}
+                        onClick2={toggleModalTolov}
                     />
+                    <PaymountTitle />
+                    <PaymentsTable />
                 </div>
             </Container>
             {/* modal */}
+
             {modal && (
                 <Modal>
                     <div className="modal">
                         <div onClick={toggleModal} className="overlay"></div>
                         <div className="modal-content">
-                            <h2>O‘quv markaz qo‘shish</h2>
-                            <div className="modalContainer">
-                                <ul className='container'>
-                                    <span className='nameSpan'>Nomi</span>
-                                    <span className='nameSpan'>A'zolik vaqti</span>
-                                    <span className='nameSpan'>Direktor</span>
-                                    <span className='nameSpan'>Login</span>
-                                    <span className='nameSpan'>Status</span>
-                                </ul>
-                                <ul className='container'>
-                                    <input className='inputStyle' />
-                                    <input className='inputStyle' type={'date'} />
-                                    <input className='inputStyle' />
-                                    <input className='inputStyle' />
-                                    <select className='inputStyle'>
-                                        <option value="lime">Faol</option>
-                                        <option value="coconut">Faol emas</option>
-                                        <option value="mango">Demo</option>
-                                    </select>
-                                </ul>
-                                <ul className='container'>
-                                    <span className='nameSpan'>Telefon raqam</span>
-                                    <span className='nameSpan'>STTR</span>
-                                    <span className='nameSpan'>Direktor nomeri</span>
-                                    <span className='nameSpan'>Parol</span>
-                                </ul>
-                                <ul className='container'>
-                                    <input className='inputStyle1' />
-                                    <input className='inputStyle1' />
-                                    <input className='inputStyle1' />
-                                    <input className='inputStyle1' />
-                                </ul>
-                            </div>
-
-                            <button className="close-modal" onClick={toggleModal}>
-                                X
-                            </button>
+                            <ToggleForm onClick={toggleModal} />
                         </div>
+                    </div>
+                </Modal>
+            )}
+
+            {modal2 && (
+                <Modal>
+                    <div className="modal">
+                        <div onClick={toggleModalTolov} className="overlay"></div>
+                        <form onSubmit={submitHandler}>
+                            <div className="modal-content2">
+                                <h2>O‘quv markaz qo‘shish</h2>
+                                <div className="modalContainer">
+                                    <ul className='container'>
+                                        <span className='nameSpan'>O'quv markaz nomi</span>
+                                        <span className='nameSpan'>A'zolik vaqti</span>
+                                        <span className='nameSpan'>To'lov summasi</span>
+                                        <span className='nameSpan'>Izoh</span>
+                                    </ul>
+                                    <ul className='container'>
+                                        <select className='inputStyle' onChange={(e) => setCenterId(e.target.value)}>
+                                            <option>Markazni tanlang</option>
+                                            {data.map(data => <option
+                                                value={data.eduCenterId}>{data.eduCenterName}</option>)}
+                                        </select>
+
+                                        <div className='date'>
+                                            <input className='dateStyle' type="datetime-local" value={startTime} onChange={(e) => setStart(e.target.value)} />
+                                            <input className='dateStyle' type="datetime-local" value={endTime} onChange={(e) => setEnd(e.target.value)} />
+                                        </div>
+                                        <input className='inputStyle' value={payAmount} onChange={(e) => setMoney(e.target.value)} />
+                                        <textarea className=' textarea' value={comment} onChange={(e) => setComment(e.target.value)} />
+                                    </ul>
+                                </div>
+
+                                <button className="close-modal" onClick={toggleModalTolov}>
+                                    X
+                                </button>
+                                <button type='submit'>submit</button>
+                            </div>
+                        </form>
                     </div>
                 </Modal>
             )}
@@ -107,15 +178,44 @@ const Container = styled.div`
         width: 91vw;
         height: 87.9vh;
     }
+
+    .payMount{
+        height: 400px;
+        background-color: #fff;
+        width: 100%;
+    }
+
 `
 const Modal = styled.div`
 body.active-modal {
     overflow-y: hidden;
 }
 .modal{
-    
-    width: 989px;
-    height: 539px;
+    width: 556px;
+    height: 465px;
+}
+
+.date{
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+    margin-bottom: 42px;
+
+}
+
+.dateStyle{
+    width: 135px;
+    height: 36px;
+    border: 1px solid #DADADA;
+    border-radius: 5px;
+}
+
+.textarea{
+    width: 270px;
+    height: 66px;
+    border: 1px solid #DADADA;
+    border-radius: 5px;
+    margin: 20px;
 }
 
 .btn-modal {
@@ -147,8 +247,20 @@ body.active-modal {
     background: #f1f1f1;
     padding: 14px 28px;
     border-radius: 3px;
-    width: 989px;
-    height: 539px;
+    width: 880px;
+    height: 565px;
+}
+.modal-content2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1.4;
+    background: #f1f1f1;
+    padding: 14px 28px;
+    border-radius: 3px;
+    width: 560px;
+    height: 565px;
 }
 
 .modalContainer{
@@ -171,7 +283,7 @@ body.active-modal {
 }
 
 .nameSpan{
-    margin-bottom: 50px;
+    margin-bottom: 55px;
     font-family: 'Inter';
     font-style: normal;
     font-weight: 500;

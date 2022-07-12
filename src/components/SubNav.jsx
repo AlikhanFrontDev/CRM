@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TbBrandTelegram } from "react-icons/tb";
+import { AiOutlineDollarCircle } from "react-icons/ai";
+
+
 
 function SubNav({ button, onClick1, onClick2, onClick3, title }) {
     return (
@@ -8,7 +10,7 @@ function SubNav({ button, onClick1, onClick2, onClick3, title }) {
             <ul className='sNav'>
                 <button className='addButton' onClick={onClick1} >{title}</button>
                 {button && <button className='smsButton' onClick={onClick2}>
-                    <TbBrandTelegram className='iconmassage' />
+                    <AiOutlineDollarCircle className='iconmassage' />
                     {button}
                 </button>}
                 {/* <li className='iconOne' >3</li>

@@ -17,8 +17,10 @@ function LoginPage() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData)
         })
-            .then(res => res.json())
-            .then(data => console.log(data.user))
+
+
+            .then((res) => res.JSON)
+            .then(data => console.log(data))
     }
 
     function handleChange(e) {

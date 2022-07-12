@@ -12,8 +12,6 @@ import TableNavigation from '../components/TableNavigation';
 
 
 
-
-
 function MarkazlarPage() {
 
 
