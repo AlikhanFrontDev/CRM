@@ -30,9 +30,11 @@ function PaymountTitle(props) {
 
 
 const Container = styled.div`
+    margin-left: 125px;
+    width: 90vw;
     margin-top: 85px;
     height: 173px;
-    width: 100%;
+
     background-color: #fff;
     display: flex;
     flex-direction: column;
@@ -40,7 +42,7 @@ const Container = styled.div`
     align-items: center;
     h3{
         margin-bottom: 20px;
-        font-family: Inter;
+        font-family: 'Inter';
         font-style: normal;
         font-weight: 500;
         font-size: 24px;

@@ -1,42 +1,63 @@
-import React, { useState } from 'react';
-import styled from 'styled-components'
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import AuthService from "../services/auth.service";
+import styled from "styled-components";
+import jwt_decode from "jwt-decode";
 
 
 
+// const code = jwt_decode(role);
+// const atribut = JSON.parse(code.attributes);
 function LoginPage() {
 
-    const [formData, setFormData] = useState({
-        username: '',
-        password: ''
-    })
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
-    function handleSubmit(e) {
-        e.preventDefault()
-        fetch('http://185.244.216.51:8079/api/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData)
-        })
+    const supernavigate = useNavigate();
+    const adminnavigate = useNavigate();
 
 
-            .then((res) => res.JSON)
-            .then(data => console.log(data))
-    }
+    const handleLogin = async (e) => {
+        e.preventDefault();
 
-    function handleChange(e) {
-        setFormData({ ...formData, [e.target.name]: e.target.value })
-    }
+
+        try {
+            await AuthService.login(username, password)
+                const role = JSON.parse(localStorage.getItem("user"));
+                const atts = jwt_decode(role);
+                const userroles = JSON.parse(atts.attributes)
+                if (userroles.userRoleSet = "SUPER_ADMIN") {
+                    supernavigate('/markazlarPage')
+                }
+                else {
+                    adminnavigate('/dashboard')
+
+                }
+
+
+                ;
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
 
     return (
         <>
             <Container>
                 <Forum>
-                    <ForumItem onSubmit={e => handleSubmit(e)}>
+                    <ForumItem onSubmit={handleLogin}>
                         <h2>Welcome</h2>
                         <label htmlFor="">Login</label>
-                        <input type="text" placeholder='Login' value={formData.username} name='username' onChange={e => handleChange(e)} />
+                        <input type="text"
+                            placeholder="username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)} />
                         <label htmlFor="">Password</label>
-                        <input type="password" placeholder='Password' value={formData.password} name='password' onChange={e => handleChange(e)} />
+                        <input type="password"
+                            placeholder="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)} />
                         <button type="submit">Sign In</button>
                     </ForumItem>
                 </Forum>
@@ -114,3 +135,33 @@ const ForumItem = styled.form`
 `
 
 export default LoginPage;
+
+
+
+    // const navigate = useNavigate();
+    // const [formData, setFormData] = useState({
+    //     username: '',
+    //     password: ''
+    // })
+
+    // function handleSubmit(e) {
+    //     e.preventDefault()
+
+    //     fetch('http://185.244.216.51:8079/api/auth/login', {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify(formData)
+    //     })
+
+    //         .then(
+    //             res => res.json())
+    //         .then(res => localStorage.setItem('token', res.token))
+    //         navigate('/markazlarPage')
+    //     // localStorage.setItem(res.token)
+    // }
+
+    // function handleChange(e) {
+    //     setFormData({ ...formData, [e.target.name]: e.target.value })
+    // }
+
+

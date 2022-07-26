@@ -15,7 +15,10 @@ import LoginPage from './pages/LoginPage';
 import MarkazlarPage from './pages/MarkazlarPage';
 import MarkazlarArchive from './components/MarkazlarArchive';
 import DaromadPage from './pages/DaromadPage';
+import Fanlar from './pages/Fanlar';
+import RoomsPage from './pages/RoomsPage';
 import Test from './Test';
+
 
 
 function App() {
@@ -33,6 +36,8 @@ function App() {
         <Route path='/daromadPage' element={<DaromadPage />} />
         <Route path='/test' element={<Test />} />
         <Route path='/markazlarArchive' element={<MarkazlarArchive />} />
+        <Route path='/fanlar' element={<Fanlar />} />
+        <Route path='/rooms' element={<RoomsPage />} />
       </Routes>
     </div>
   );

@@ -15,6 +15,10 @@ function TableNavigation(props) {
 }
 
 const Container = styled.div`
+
+    margin-left: 128px;
+    background-color: #fff;
+    border-top: 1px solid black;
     .nav{
         display: flex;
     }

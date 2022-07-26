@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { AiOutlinePlus, AiOutlineClose } from "react-icons/ai";
+// import authHeader from "../../services/user.service";
 
 class ToggleForm extends Component {
 
@@ -84,11 +85,19 @@ class ToggleForm extends Component {
     //         .then(res => { console.log(res) })
 
     // }
+    // tokenPayload() {
+    //     let config = {
+    //       headers: {
+    //         Authorization: 'Bearer ' + user.accessToken
+    //       }
+    //     }
 
 
     handleSubmit = e => {
         e.preventDefault();
 
+
+        const token = JSON.parse(localStorage.getItem("user"));
         const eduCenter = {
             edu_centerName: this.state.edu_centerName,
             adminFullName: this.state.adminFullName,
@@ -100,12 +109,16 @@ class ToggleForm extends Component {
             adminPassword: this.state.adminPassword,
         }
 
-
-        axios.post(`http://185.244.216.51:8079/api/eduCenter/createEduCenter`, eduCenter)
+        axios.post(
+            `http://185.244.216.51:8079/api/eduCenter/createEduCenter`,
+            eduCenter,
+            { headers: { "Authorization": `Bearer ${token.token}` } }
+        )
             .then(res => {
                 console.log(res);
                 console.log(res.data);
             })
+
     }
 
 

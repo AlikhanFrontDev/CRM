@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import axios from "axios"
 import { Checkbox } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
 
 const apiEndpoint = "http://185.244.216.51:8079/api/eduCenter/getAllArchived"
 class MArchive extends Component {
     state = {
-        users: []
+        users: [],
+
+
     };
 
     async componentDidMount() {
@@ -47,7 +50,6 @@ class MArchive extends Component {
                             </tbody>
                         ))}
                     </table>
-
                 </Container>
             </>
         );
@@ -55,31 +57,33 @@ class MArchive extends Component {
 }
 
 const Container = styled.div`
- td {
-  border-bottom: 1px solid #EEEEEE;;
+td{
+    border-bottom: 1px solid #EEEEEE;
+  
 }
-    table{
-        width: 100%;
-        border-collapse: collapse;
-    }
-    thead{
-        height: 59px;
-        width: 100%;
-        background-color: #EEEEEE;
-    }
+table{
 
-    tbody{
-        text-align: center;
-        width: 100%;
-    }
+    border-collapse: collapse;
 
-    th{
         
     }
+thead{
+    height: 59px;
+    width: 100%;
+    background-color: #EEEEEE;
+}
 
-    .check{
-        margin-right: 40px;
-    }
-`
+tbody{
+    text-align: center;
+    width: 100%;
+}
+
+th{
+    
+}
+.check{
+    margin-right: 40px;
+}
+ `
 
 export default MArchive;

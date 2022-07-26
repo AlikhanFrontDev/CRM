@@ -9,6 +9,7 @@ import SubNav from '../components/SubNav';
 import MarkazlarTable from '../components/Tables/MarkazlarTable';
 import ToggleForm from '../components/Tables/ToggleForm';
 import TableNavigation from '../components/TableNavigation';
+import { FiSettings } from "react-icons/fi";
 
 
 
@@ -45,6 +46,7 @@ function MarkazlarPage() {
                     <SubNav
                         title={"+ O'quv markaz qo'shish"}
                         onClick1={toggleModal}
+                        button2={"O'chirish"}
                     />
                     <div className="listContainer">
                         <TableNavigation />
@@ -75,7 +77,7 @@ const Container = styled.div`
     flex-direction: row ;
     height: 100vh;
     width: 100vw;
-    position: fixed;
+    /* position: fixed; */
     .listContainer{
         height: 100vh;
         background-color: #fff;
@@ -94,6 +96,7 @@ const Container = styled.div`
 const Modal = styled.div`
 body.active-modal {
     overflow-y: hidden;
+    overflow-x: hidden;
 }
 .modal{   
     width: 989px;

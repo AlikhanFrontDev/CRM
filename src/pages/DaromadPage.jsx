@@ -16,13 +16,13 @@ import PaymentsTable from '../components/Tables/PaymentsTable';
 function DaromadPage() {
     const [modal, setModal] = useState(false);
     const [modal2, setModal2] = useState(false);
-    const [name, setName] = useState('');
+    const [dateInfo, setDateInfo] = useState('');
     const [startTime, setStart] = useState('');
     const [endTime, setEnd] = useState('');
     const [payAmount, setMoney] = useState('');
     const [comment, setComment] = useState('');
     const [data, setData] = useState([]);
-    const [eduCenterId, setCenterId] = useState('')
+    const [eduCenterId, setCenterId] = useState("")
 
     // ------------------------------------------------------------------------
     const toggleModal = () => {
@@ -50,14 +50,11 @@ function DaromadPage() {
 
     const submitHandler = (e) => {
         e.preventDefault();
-
-
-
-
         const postData = { startTime, endTime, payAmount, comment, eduCenterId }
         console.log(postData)
-
-        axios.post('http://185.244.216.51:8079/api/payEdu/createEduPay', postData)
+        const token = JSON.parse(localStorage.getItem("user"));
+        axios.post('http://185.244.216.51:8079/api/payEdu/createEduPay', postData,
+            { headers: { "Authorization": `Bearer ${token.token}` } })
 
             .then((res) => {
                 console.log(res)
@@ -66,8 +63,27 @@ function DaromadPage() {
                 console.log(err)
             })
     }
+    const submitHandlerDate = (e) => {
+        e.preventDefault();
+        const postDateData = { eduCenterId }
+        console.log(postDateData)
+
+        axios.post(`http://185.244.216.51:8079/api/payEdu/getLastPaymentDate`, postDateData
+
+        )
+
+            .then((res) => {
+                console.log(res.data.fromDate)
+                setDateInfo(res.data.fromDate)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
 
     // --------------------------------------------------------------
+
 
 
     useEffect(() => {
@@ -82,6 +98,21 @@ function DaromadPage() {
 
         fetchData();
     }, []);
+
+
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const { data: response } = await axios.get('http://185.244.216.51:8079/api/payEdu/getLastPaymentDate');
+    //             setStartData(response);
+    //         } catch (error) {
+    //             console.error(error.message);
+    //         }
+    //     }
+
+    //     fetchData();
+    // }, []);
     // -----------------------------------------------------------------------
     return (
 
@@ -128,7 +159,10 @@ function DaromadPage() {
                                 <div className="modalContainer">
                                     <ul className='container'>
                                         <span className='nameSpan'>O'quv markaz nomi</span>
-                                        <span className='nameSpan'>A'zolik vaqti</span>
+                                        <span className='nameSpan flex '>
+                                            <span>A'zolik vaqti</span>
+                                            <div onClick={submitHandlerDate} >refresh</div>
+                                        </span>
                                         <span className='nameSpan'>To'lov summasi</span>
                                         <span className='nameSpan'>Izoh</span>
                                     </ul>
@@ -138,13 +172,14 @@ function DaromadPage() {
                                             {data.map(data => <option
                                                 value={data.eduCenterId}>{data.eduCenterName}</option>)}
                                         </select>
+                                        <p>{dateInfo}</p>
 
                                         <div className='date'>
-                                            <input className='dateStyle' type="datetime-local" value={startTime} onChange={(e) => setStart(e.target.value)} />
+                                            <input className='dateStyle' type="date" placeholder='' value={startTime} onChange={(e) => setStart(e.target.value)} />
                                             <input className='dateStyle' type="datetime-local" value={endTime} onChange={(e) => setEnd(e.target.value)} />
                                         </div>
                                         <input className='inputStyle' value={payAmount} onChange={(e) => setMoney(e.target.value)} />
-                                        <textarea className=' textarea' value={comment} onChange={(e) => setComment(e.target.value)} />
+                                        <textarea className=' textarea' value={comment} placeholder={dateInfo} onChange={(e) => setComment(e.target.value)} />
                                     </ul>
                                 </div>
 
@@ -179,6 +214,7 @@ const Container = styled.div`
         height: 87.9vh;
     }
 
+
     .payMount{
         height: 400px;
         background-color: #fff;
@@ -200,7 +236,10 @@ body.active-modal {
     flex-direction: row;
     margin: 20px;
     margin-bottom: 42px;
+}
 
+.flex{
+    display: flex;
 }
 
 .dateStyle{

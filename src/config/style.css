@@ -6,4 +6,5 @@
 
 body{
     background: #ebeef7;
+    overflow-x: hidden;
 }

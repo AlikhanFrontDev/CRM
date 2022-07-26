@@ -1,20 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import axios from 'axios';
 import NavBar from '../components/NavBar';
 import Sidebar from '../components/Sidebar';
-import { TbReportMoney } from "react-icons/tb";
-import { AiOutlineHome } from "react-icons/ai";
 import SubNav from '../components/SubNav';
-import MarkazlarTable from '../components/Tables/MarkazlarTable';
 import ToggleForm from '../components/Tables/ToggleForm';
-import TableNavigation from '../components/TableNavigation';
-import MArchive from './Marchive';
+import styled from 'styled-components';
+import AddSubjectForm from '../components/Tables/AddSubjectForm';
+import FanlarTable from '../components/Tables/FanlarTable';
 
-
-
-function MarkazlarArchive() {
-
+function Fanlar(props) {
 
     const [modal, setModal] = useState(false);
 
@@ -31,43 +24,39 @@ function MarkazlarArchive() {
 
 
     return (
-
-        <>
-            <Container>
-                <Sidebar
-                    iconNine={<TbReportMoney className='icons' />}
-                    iconEight={<AiOutlineHome className='icons' />}
+        <Container>
+            <Sidebar
+                iconOne={'Dashboard'}
+                iconTwo={'Darslar'}
+                iconThree={"O'quvchilar"}
+                iconFive={"Guruhlar"}
+                iconSix={"O'qituvchilar"}
+                iconSeven={"Xisobot"}
+            />
+            <div>
+                <NavBar className="box2"
+                    name={"Fanlar"}
                 />
-                <div>
-                    <NavBar className="box2"
-                        name={"Barcha o'quv markazlar"}
+                <SubNav
+                    title={"Fan qo'shish"}
+                    onClick1={toggleModal}
+                // button={"Xabar yuborish"}
+                />
+                <FanlarTable />
+            </div>
 
-                    />
-                    <SubNav
-                        title={"+ O'quv markaz qo'shish"}
-                        onClick1={toggleModal}
-                    />
-                    <div className="listContainer">
-                        <TableNavigation />
-                        <MArchive />
-                    </div>
-                </div>
-            </Container>
-            {/* modal */}
             {modal && (
                 <Modal>
                     <div className="modal">
                         <div onClick={toggleModal} className="overlay"></div>
                         <div className="modal-content">
-                            <ToggleForm onClick={toggleModal} />
+                            <AddSubjectForm />
                         </div>
                     </div>
                 </Modal>
             )}
-            {/* modal */}
 
-        </>
-
+        </Container>
     );
 }
 
@@ -77,21 +66,11 @@ const Container = styled.div`
     height: 100vh;
     width: 100vw;
     position: fixed;
-    .listContainer{
-        height: 100vh;
-        background-color: #fff;
-        width: 100%;
-        margin-top: 85px;
-    }
-    .box2{
-        width: 91vw;
-    }
+    
 
-    .box3{
-        width: 91vw;
-        height: 87.9vh;
-    }
+
 `
+
 const Modal = styled.div`
 body.active-modal {
     overflow-y: hidden;
@@ -124,10 +103,9 @@ body.active-modal {
     background: #f1f1f1;
     padding: 14px 28px;
     border-radius: 15px;
-    width: 989px;
-    height: 623px;
+    width: 460px;
+    height: 341px;
 }
 `
 
-
-export default MarkazlarArchive;
+export default Fanlar;

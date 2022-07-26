@@ -67,8 +67,9 @@ function Sidebar({ iconOne, iconTwo, iconThree, iconFour, iconFive, iconSix, ico
 }
 
 const Container = styled.div`
+    top: 0;
+    position: fixed;  
     float: left;
-    position: sticky;
     width: 124px;
     background-color: #0D1C38;
     display: flex;
@@ -76,7 +77,7 @@ const Container = styled.div`
     /* justify-content: center; */
     align-items: center;
     height: 100vh;
-    position: relative;
+    /* position: relative; */
     color: #fff;
     .iconTitle{
         text-align: center;
@@ -146,7 +147,7 @@ const Container = styled.div`
     }
 
     .box{
-        margin-top: 15px;
+        margin-top: 15px;   
         /* padding-bottom: 5px; */
     }
 
