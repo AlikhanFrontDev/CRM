@@ -143,7 +143,7 @@ const Container = styled.div`
         font-style: normal;
         font-weight: 400;
         font-size: 14px;
-        line-height: 17px;
+        line-height: 18px;
     }
 
     .box{
